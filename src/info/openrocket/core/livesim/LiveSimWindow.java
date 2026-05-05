@@ -205,7 +205,18 @@ public class LiveSimWindow extends JFrame {
             JCheckBoxMenuItem item = new JCheckBoxMenuItem(eventType);
             item.setSelected(false);
             item.addActionListener(e -> {
-                eventVisibility.put(eventType, item.isSelected());
+                boolean isSelected = item.isSelected();
+                if (isSelected) {
+                    // Check if event time is within revealed data
+                    double eventTime = event.getTime();
+                    double revealedUpToTime = time.isEmpty() ? 0 : (currentIndex < time.size() ? time.get(currentIndex - 1) : time.get(time.size() - 1));
+                    if (eventTime > revealedUpToTime) {
+                        JOptionPane.showMessageDialog(this, "Cannot enable event markers for unrevealed data", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        item.setSelected(false);
+                        return;
+                    }
+                }
+                eventVisibility.put(eventType, isSelected);
                 updateEventMarkers();
             });
             optionsMenu.add(item);

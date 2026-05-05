@@ -1,0 +1,1 @@
+public class Inspect { public static void main(String[] args) throws Exception { Class<?> c = Class.forName("info.openrocket.core.simulation.FlightDataBranch"); for (java.lang.reflect.Method m : c.getMethods()) { System.out.println(m); } } }

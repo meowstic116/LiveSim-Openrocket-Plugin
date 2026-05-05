@@ -1,0 +1,16 @@
+<project name="LiveSim" basedir="." default="build">
+
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="build.dir" value="${basedir}/build"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="build" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <javac debug="true" srcdir="${src.dir}" destdir="${build.dir}" classpath="OpenRocket-24.12.jar" includeantruntime="false" source="1.8" target="1.8"/>
+    	<jar destfile="LiveSim.jar" basedir="${build.dir}"/>
+    </target>
+
+</project>
